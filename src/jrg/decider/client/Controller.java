@@ -17,7 +17,7 @@ public class Controller implements ChoiceHandler
     
     private Tree _tree;
     
-    Controller(Panel treePanel)
+    public Controller(Panel treePanel)
     {
         _root = new ChoiceNode("root");
         _root.addChild("McDonalds");
@@ -34,13 +34,27 @@ public class Controller implements ChoiceHandler
         treePanel.add(_tree);
     }
     
-    void setDisplayer(ChoiceDisplayer displayer)
+    public void setDisplayer(ChoiceDisplayer displayer)
     {
         _displayer = displayer;
-        setNewDisplay();
+        updateDisplay();
     }
     
-    void setNewDisplay()
+    public void choice(int selection)
+    {
+        if(selection == ChoiceHandler.OPTION1)
+        {
+            setWinner(_currentPair.parent, _currentPair.node1, _currentPair.node2);
+        }
+        else if(selection == ChoiceHandler.OPTION2)
+        {
+            setWinner(_currentPair.parent, _currentPair.node2, _currentPair.node1);
+        }
+        
+        updateDisplay();
+    }
+
+    private void updateDisplay()
     {
         LinkedList<ChoiceNode> multis = new LinkedList<ChoiceNode>();
         _root.getMultiParents(multis);
@@ -88,19 +102,6 @@ public class Controller implements ChoiceHandler
     {
         parent.removeChild(loser);
         winner.addChild(loser);
-    }
-    public void choice(int selection)
-    {
-        if(selection == ChoiceHandler.OPTION1)
-        {
-            setWinner(_currentPair.parent, _currentPair.node1, _currentPair.node2);
-        }
-        else if(selection == ChoiceHandler.OPTION2)
-        {
-            setWinner(_currentPair.parent, _currentPair.node2, _currentPair.node1);
-        }
-        
-        setNewDisplay();
     }
  
 }

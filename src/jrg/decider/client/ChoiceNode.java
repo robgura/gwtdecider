@@ -31,6 +31,16 @@ public class ChoiceNode
         addChild(new ChoiceNode(name));
     }
     
+    void removeChild(ChoiceNode node)
+    {
+        _children.remove(node);
+    }
+
+    public LinkedList<ChoiceNode> getChildren()
+    {
+        return _children;
+    }
+
     int getChildrenCount()
     {
         return _children.size();
@@ -48,11 +58,6 @@ public class ChoiceNode
             count += child.getDesendantCount() + 1;
         }
         return count;
-    }
-    
-    void removeChild(ChoiceNode node)
-    {
-        _children.remove(node);
     }
     
     ChoiceNodePair getPair()
@@ -88,11 +93,6 @@ public class ChoiceNode
             ChoiceNode node = iter.next();
             node.getMultiParents(multis);
         }
-    }
-
-    public LinkedList<ChoiceNode> getChildren()
-    {
-        return _children;
     }
 
 
