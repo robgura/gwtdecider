@@ -6,5 +6,9 @@ public interface ChoiceHandler
     final public int OPTION2 = 2;
     
     public void choice(int selection);
+    
+    public ChoiceNodePair selectNewPair() throws NoMoreSelections;
+
+    public ChoiceNode getRoot();
 
 }

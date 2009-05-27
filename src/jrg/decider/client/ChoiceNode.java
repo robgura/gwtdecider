@@ -72,9 +72,7 @@ public class ChoiceNode
             {
                 index2++;
             }
-            System.out.println("index1 " + index1);
-            System.out.println("index2 " + index2);
-            System.out.println("Size " + _children.size());
+            
             pair = new ChoiceNodePair(this, _children.listIterator(index1).next(), _children.listIterator(index2).next());
         }
         return pair;

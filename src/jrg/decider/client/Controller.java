@@ -1,45 +1,20 @@
 package jrg.decider.client;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+
 import com.google.gwt.user.client.Random;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
 
 public class Controller implements ChoiceHandler
 {
-    private ChoiceDisplayer _displayer;
-    
     private ChoiceNode _root;
-    
+
     private ChoiceNodePair _currentPair;
-    
-    private Tree _tree;
-    
-    public Controller(Panel treePanel)
+
+    public Controller()
     {
-        _root = new ChoiceNode("root");
-        _root.addChild("McDonalds");
-        _root.addChild("BurgerKing");
-        _root.addChild("Wendys");
-        _root.addChild("Taco Bell");
-        _root.addChild("KFC");
-        _root.addChild("Pizza Hut");
-        _root.addChild("A&W");
-        _root.addChild("Arbys");
-        _root.addChild("Subway");
-        
-        _tree = new Tree();
-        treePanel.add(_tree);
+        _root = new MagicKingdomRoot();
     }
-    
-    public void setDisplayer(ChoiceDisplayer displayer)
-    {
-        _displayer = displayer;
-        updateDisplay();
-    }
-    
+
     public void choice(int selection)
     {
         if(selection == ChoiceHandler.OPTION1)
@@ -50,52 +25,30 @@ public class Controller implements ChoiceHandler
         {
             setWinner(_currentPair.parent, _currentPair.node2, _currentPair.node1);
         }
-        
-        updateDisplay();
     }
 
-    private void updateDisplay()
+    public ChoiceNodePair getCurrentPair()
+    {
+        return _currentPair;
+    }
+
+    public ChoiceNodePair selectNewPair() throws NoMoreSelections
     {
         LinkedList<ChoiceNode> multis = new LinkedList<ChoiceNode>();
         _root.getMultiParents(multis);
-
+    
         if(multis.size() > 0)
         {
             int index = Random.nextInt(multis.size());
             ChoiceNode chooseFrom = multis.listIterator(index).next();
             _currentPair = chooseFrom.getPair();
-            if(_currentPair != null)
-            {
-                _displayer.setOptions(_currentPair.node1.getName(), _currentPair.node2.getName());
-            }
         }
         else
         {
-            _displayer.setOptions("You Are Done", "Don't Pick No More!");
+            throw new NoMoreSelections();
         }
         
-        updateTree();
-    }
-    
-    private void updateTree()
-    {
-        _tree.clear();
-        
-        TreeItem rootItem = _tree.addItem(_root.getName());
-        
-        updateTreeChildren(rootItem, _root.getChildren());
-    }
-    
-    private void updateTreeChildren(TreeItem parentItem, LinkedList<ChoiceNode> children)
-    {
-        Iterator<ChoiceNode> iter = children.iterator();
-        while(iter.hasNext())
-        {
-            ChoiceNode node = iter.next();
-            TreeItem newItem = parentItem.addItem(node.getName());
-            parentItem.setState(true);
-            updateTreeChildren(newItem, node.getChildren());
-        }
+        return _currentPair;
     }
 
     private void setWinner(ChoiceNode parent, ChoiceNode winner, ChoiceNode loser)
@@ -103,5 +56,11 @@ public class Controller implements ChoiceHandler
         parent.removeChild(loser);
         winner.addChild(loser);
     }
- 
+
+    public ChoiceNode getRoot()
+    {
+        return _root;
+    }
+
+    
 }
