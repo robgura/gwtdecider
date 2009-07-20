@@ -10,28 +10,28 @@ public class ChoiceNode
     
     private LinkedList<ChoiceNode> _children;
     
-    ChoiceNode(String name)
+    public ChoiceNode(String name)
     {
         _name = name;
         _children = new LinkedList<ChoiceNode>();
     }
     
-    String getName()
+    public String getName()
     {
         return _name;
     }
     
-    void addChild(ChoiceNode node)
+    public void addChild(ChoiceNode node)
     {
         _children.add(node);
     }
     
-    void addChild(String name)
+    public void addChild(String name)
     {
         addChild(new ChoiceNode(name));
     }
     
-    void removeChild(ChoiceNode node)
+    public void removeChild(ChoiceNode node)
     {
         _children.remove(node);
     }
@@ -41,12 +41,12 @@ public class ChoiceNode
         return _children;
     }
 
-    int getChildrenCount()
+    public int getChildrenCount()
     {
         return _children.size();
     }
     
-    int getDesendantCount()
+    public int getDesendantCount()
     {
         int count = 0;
         
@@ -60,7 +60,12 @@ public class ChoiceNode
         return count;
     }
     
-    ChoiceNodePair getPair()
+    /**
+     * gets a random pair of ChoiceNodes or null if not possible.
+     * 
+     * @return a random pair as ChoiceNodePair or null if there are less than 2 children
+     */
+    public ChoiceNodePair getPair()
     {
         ChoiceNodePair pair = null;
         if(_children.size() >= 2)
@@ -78,6 +83,11 @@ public class ChoiceNode
         return pair;
     }
 
+    /**
+     * adds all decendants who have more than 1 child to sent linked list.
+     *  
+     * @param multis list to populate desendants with more than 1 child
+     */
     public void getMultiParents(LinkedList<ChoiceNode> multis)
     {
         if(_children.size() >= 2)

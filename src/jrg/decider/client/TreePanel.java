@@ -7,12 +7,12 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class TreeWidget extends VerticalPanel
+public class TreePanel extends VerticalPanel
 {
 
     private Tree _tree;
 
-    public TreeWidget()
+    public TreePanel()
     {
         _tree = new Tree();
         add(_tree);

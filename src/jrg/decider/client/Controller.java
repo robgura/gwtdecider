@@ -2,26 +2,33 @@ package jrg.decider.client;
 
 import java.util.LinkedList;
 
+import jrg.decider.client.predefines.DisneyFood;
+
 import com.google.gwt.user.client.Random;
 
-public class Controller implements ChoiceHandler
+public class Controller
 {
     private ChoiceNode _root;
 
     private ChoiceNodePair _currentPair;
+    
+    static public final int OPTION1 = 1;
+    static public final int OPTION2 = 2;
 
     public Controller()
     {
-        _root = new MagicKingdomRoot();
+        _root = new DisneyFood();
+        //_root = new MagicKingdomRoot();
+        //_root = new NumberTest();
     }
 
     public void choice(int selection)
     {
-        if(selection == ChoiceHandler.OPTION1)
+        if(selection == OPTION1)
         {
             setWinner(_currentPair.parent, _currentPair.node1, _currentPair.node2);
         }
-        else if(selection == ChoiceHandler.OPTION2)
+        else if(selection == OPTION2)
         {
             setWinner(_currentPair.parent, _currentPair.node2, _currentPair.node1);
         }
@@ -51,15 +58,15 @@ public class Controller implements ChoiceHandler
         return _currentPair;
     }
 
+    public ChoiceNode getRoot()
+    {
+        return _root;
+    }
+
     private void setWinner(ChoiceNode parent, ChoiceNode winner, ChoiceNode loser)
     {
         parent.removeChild(loser);
         winner.addChild(loser);
-    }
-
-    public ChoiceNode getRoot()
-    {
-        return _root;
     }
 
     

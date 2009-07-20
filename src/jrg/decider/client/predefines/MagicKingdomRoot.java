@@ -1,4 +1,6 @@
-package jrg.decider.client;
+package jrg.decider.client.predefines;
+
+import jrg.decider.client.ChoiceNode;
 
 public class MagicKingdomRoot extends ChoiceNode
 {

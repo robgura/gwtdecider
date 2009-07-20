@@ -13,12 +13,14 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
     private Label _choice2;
     private Button _button1;
     private Button _button2;
-    private ChoiceHandler _handler;
-    private TreeWidget _treePanel;
+    private Controller _controller;
+    private TreePanel _treePanel;
+    private StatsPanel _statsPanel;
     
-    public DisplayWidget(ChoiceHandler handler)
+    
+    public DisplayWidget(Controller handler)
     {
-        _handler = handler;
+        _controller = handler;
         
         addTreePanel();
         addButtonPanel();
@@ -28,7 +30,7 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
     
     private void addTreePanel()
     {
-        _treePanel = new TreeWidget();
+        _treePanel = new TreePanel();
         add(_treePanel);
     }
         
@@ -40,7 +42,9 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
         _button1 = new Button("Choice 1", this);
         _button2 = new Button("Choice 2", this);
         
+        _statsPanel = new StatsPanel(_controller);
         buttonPanel.add(new QuestionPanel());
+        buttonPanel.add(_statsPanel);
         buttonPanel.add(_choice1);
         buttonPanel.add(_button1);
         buttonPanel.add(_choice2);
@@ -54,11 +58,15 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
     {
         if(event.getSource() == _button1)
         {
-            _handler.choice(ChoiceHandler.OPTION1);
+            ChoiceNode loser = _controller.getCurrentPair().node2;
+            this._statsPanel.loser(loser);
+            _controller.choice(Controller.OPTION1);
         }
         else if(event.getSource() == _button2)
         {
-            _handler.choice(ChoiceHandler.OPTION2);
+            ChoiceNode loser = _controller.getCurrentPair().node1;
+            _statsPanel.loser(loser);
+            _controller.choice(Controller.OPTION2);
         }
         
         generateNewChoice();
@@ -66,11 +74,11 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
     
     void generateNewChoice()
     {
-        _treePanel.updateTree(_handler.getRoot());
+        _treePanel.updateTree(_controller.getRoot());
         
         try
         {
-            ChoiceNodePair pair = _handler.selectNewPair();
+            ChoiceNodePair pair = _controller.selectNewPair();
             setNewOptions(pair);
         }
         catch(NoMoreSelections e)
