@@ -13,7 +13,8 @@ public class StatsPanel extends HorizontalPanel
     
     private Label _currentLabel;
     private int _current;
-    
+
+    private Label _remainingLabel;
     
     StatsPanel(Controller controller)
     {
@@ -29,6 +30,10 @@ public class StatsPanel extends HorizontalPanel
         _maxQLabel = new Label("Unknown");
         add(new Label(" of "));
         add(_maxQLabel);
+        
+        _remainingLabel = new Label("Unknown");
+        add(new Label(" Total Remaining "));
+        add(_remainingLabel);
 
         setLabels();
     }
@@ -44,6 +49,7 @@ public class StatsPanel extends HorizontalPanel
     {
         _currentLabel.setText((new Integer(_current)).toString());
         _maxQLabel.setText((new Integer(_maxQ)).toString());
+        _remainingLabel.setText((new Integer(_maxQ - _current)).toString());
     }
     
 

@@ -7,7 +7,7 @@ public class QuestionPanel extends VerticalPanel
 {
     QuestionPanel()
     {
-        add(new Label("What is the meaning of life?"));
+        add(new Label("What do you like better?\n"));
     
     }
 

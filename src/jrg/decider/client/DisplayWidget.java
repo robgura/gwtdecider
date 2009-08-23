@@ -22,8 +22,8 @@ public class DisplayWidget extends HorizontalPanel implements ClickHandler
     {
         _controller = handler;
         
-        addTreePanel();
         addButtonPanel();
+        addTreePanel();
         
         generateNewChoice();
     }
