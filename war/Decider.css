@@ -1,6 +1,11 @@
 /** Add css rules here for your application. */
 	/** Example rules used by the template application (remove for your app) */
 
+body{
+	font-family: serif;
+	background-color: #FFFFCC
+}
+
 
   .gwt-Tree
 , .gwt-TreeItem
@@ -11,9 +16,12 @@
 	font-family: serif;
 }
 
+
+
 .gwt-Tree {
 	background-color: #FFFFCC;
 }
+
 	
 .decider-TreePanel{
 	width:400px;

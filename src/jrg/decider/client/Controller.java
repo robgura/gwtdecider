@@ -2,9 +2,7 @@ package jrg.decider.client;
 
 import java.util.LinkedList;
 
-import jrg.decider.client.predefines.DisneyFood;
-import jrg.decider.client.predefines.DrewMagicKingdom;
-import jrg.decider.client.predefines.Pixar;
+import jrg.decider.client.predefines.*;
 
 import com.google.gwt.user.client.Random;
 
@@ -19,8 +17,8 @@ public class Controller
 
     public Controller()
     {
-    	_root = new Pixar();
     	_root = new DrewMagicKingdom();
+    	//_root = new Pixar();
         //_root = new DisneyFood();
         //_root = new MagicKingdomRoot();
         //_root = new NumberTest();
